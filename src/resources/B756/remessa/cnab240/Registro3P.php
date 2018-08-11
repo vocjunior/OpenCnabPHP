@@ -119,7 +119,7 @@ class Registro3P extends Generico3 {
         'nosso_numero_dv' => array(//13.3P -- 47
             'tamanho' => 1,
             'default' => '',
-            'tipo' => 'int',
+            'tipo' => 'alfa',
             'required' => true
         ),
         'parcela' => array(//13.3P -- 48-49
@@ -341,7 +341,7 @@ class Registro3P extends Generico3 {
 
     protected function set_nosso_numero_dv($value) {
         $Dv = self::modulo11($this->data['nosso_numero'], $this->data['agencia'], RemessaAbstract::$entryData['codigo_beneficiario'] . RemessaAbstract::$entryData['codigo_beneficiario_dv']);
-        $this->data['nosso_numero_dv'] = $Dv;
+        $this->data['nosso_numero_dv'] = (string)$Dv;
     }
 
     protected static function modulo11($index, $ag, $conv) {
