@@ -59,6 +59,7 @@ class Especie {
         $this->caixa[17] = array('abr' => "RC", 'txt' => 'Recibo');
         $this->caixa[18] = array('abr' => "FAT", 'txt' => 'Fatura');
         $this->caixa[19] = array('abr' => "ND", 'txt' => 'Nota de Débito');
+        $this->caixa[99] = array('abr' => "OU", 'txt' => 'Outros');
 
         $this->bb[1] = array('abr' => "CH", 'txt' => 'Cheque');
         $this->bb[2] = array('abr' => "DM", 'txt' => 'Duplicata Mercantil');
