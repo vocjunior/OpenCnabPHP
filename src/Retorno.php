@@ -28,7 +28,7 @@ use \CnabPHP\RetornoAbstract;
 use \CnabPHP;
 
 class Retorno extends RetornoAbstract{
-	public function __construct($conteudo){    
+	public function __construct($conteudo, $codigo_banco = null, $layout_versao = null){
 		parent::__construct($conteudo);
 	}
 }

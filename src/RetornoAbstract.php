@@ -28,32 +28,40 @@ abstract class RetornoAbstract
      * @$layout = nome do layout no momento so Cnab240_SIGCB
      * @$data = um array contendo os dados nessesarios para o arquvio
      */
-    public function __construct($conteudo)
+    public function __construct($conteudo, $codigo_banco = null, $layout_versao = null)
     {
         $conteudo = str_replace("\r\n", "\n", $conteudo);
         $lines = explode("\n", $conteudo);
         if (count($lines) < 2) {
             throw new Exception("Arquivo sem Conteudo");
         }
-        $length = strlen($lines[0]);
-        $layout_versao = null;
 
-        if ($length == 240 || $length == 241) {
-            $bytes = 240;
-            $layout_versao = substr($lines[0], 163, 3);
-            $codigo_banco = substr($lines[0], 0, 3);
-            $codigo_tipo = substr($lines[0], 142, 1);
-        } elseif ($length == 400 || $length == 401) {
-            $bytes = 400;
-            $layout_versao = '400';
-            $codigo_banco = substr($lines[0], 76, 3);
-            $codigo_tipo = substr($lines[0], 1, 1);
+        $length = strlen($lines[0]);
+
+        if (empty($codigo_banco) && empty($layout_versao)) {
+            if ($length == 240 || $length == 241) {
+                $bytes = 240;
+                $layout_versao = substr($lines[0], 163, 3);
+                $codigo_banco = substr($lines[0], 0, 3);
+                $codigo_tipo = substr($lines[0], 142, 1);
+            } elseif ($length == 400 || $length == 401) {
+                $bytes = 400;
+                $layout_versao = '400';
+                $codigo_banco = substr($lines[0], 76, 3);
+                $codigo_tipo = substr($lines[0], 1, 1);
+            } else {
+                throw new Exception("Não foi possivel detectar o tipo do arquivo, provavelmente esta corrompido");
+            }
+
+            if ($codigo_tipo == '1') {
+                throw new Exception("Esse é um arquivo de remessa, nao pode ser processado aqui.");
+            }
         } else {
-            throw new Exception("Não foi possivel detectar o tipo do arquivo, provavelmente esta corrompido");
+            if (($codigo_banco != substr($lines[0], 0, 3)) || ($layout_versao != substr($lines[0], 164, 3))) {
+                throw new Exception("Versão do arquivo incompatível com a implementação");
+            }
         }
-        if ($codigo_tipo == '1') {
-            throw new Exception("Esse é um arqvuio de remessa, nao pode ser processado aqui.");
-        }
+
         self::$banco = $codigo_banco;
         self::$layout = "L" . $layout_versao;
         $class = 'CnabPHP\resources\\B' . self::$banco . '\retorno\\' . self::$layout . '\Registro0';
