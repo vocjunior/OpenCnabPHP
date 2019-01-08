@@ -24,7 +24,7 @@
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 namespace CnabPHP\resources\B104\retorno\L101;
-use CnabPHP\resources\generico\retorno\L101\Generico3;
+use CnabPHP\resources\generico\retorno\L040\Generico3;
 use CnabPHP\RetornoAbstract;
 use CnabPHP\Exception;
 
