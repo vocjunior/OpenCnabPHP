@@ -124,13 +124,21 @@ abstract class RetornoAbstract
         $arquivo = $this->children[0];
         return (self::$layout != 'L400') ? $arquivo->versao_layout : 'L400';
     }
+
     /**
-     * Retorna o a versão do layout
-     * @return string
+     * @return array
      */
     public function getRegistrosRaiz()
     {
         $arquivo = $this->children;
         return $arquivo;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getHeader()
+    {
+        return $this->children[0];
     }
 }

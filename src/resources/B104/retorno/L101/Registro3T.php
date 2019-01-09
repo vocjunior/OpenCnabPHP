@@ -122,7 +122,7 @@ class Registro3T extends Generico3
 		'seu_numero'=>array(      //15.3T
 			'tamanho'=>11,
 			'default'=>'',  
-			'tipo'=>'int',
+			'tipo'=>'alfa',
 			'required'=>true),
 		'filler4'=>array(        //15.3T
 			'tamanho'=>4,
@@ -212,19 +212,19 @@ class Registro3T extends Generico3
 		RetornoAbstract::$linesCounter++;
 		$class = 'CnabPHP\resources\\B'.RetornoAbstract::$banco.'\retorno\\'.RetornoAbstract::$layout.'\Registro3U';
 		$this->children[] = new $class(RetornoAbstract::$lines[RetornoAbstract::$linesCounter]);
-//		if(substr(RetornoAbstract::$lines[RetornoAbstract::$linesCounter+1],14,1)=="Y"){
-//			if(substr(RetornoAbstract::$lines[RetornoAbstract::$linesCounter+1],18,2)=="50")
-//			{
+		if(substr(RetornoAbstract::$lines[RetornoAbstract::$linesCounter+1],14,1)=="Y"){
+			if(substr(RetornoAbstract::$lines[RetornoAbstract::$linesCounter+1],18,2)=="50")
+			{
 				//RetornoAbstract::$linesCounter++;
 				//$class = 'CnabPHP\resources\\'.RetornoAbstract::$banco.'\retorno\\'.RetornoAbstract::$layout.'\Registro3Y50';
 				//$this->children[] = new $class(RetornoAbstract::$lines[RetornoAbstract::$linesCounter]);
-//			}elseif(substr(RetornoAbstract::$lines[RetornoAbstract::$linesCounter+1],18,2)=="08")
-//			{
-//				RetornoAbstract::$linesCounter++;
-//				$class = 'CnabPHP\resources\\B'.RetornoAbstract::$banco.'\retorno\\'.RetornoAbstract::$layout.'\Registro3Y08';
-//				$this->children[] = new $class(RetornoAbstract::$lines[RetornoAbstract::$linesCounter]);
-//			}
-//		}
+			}elseif(substr(RetornoAbstract::$lines[RetornoAbstract::$linesCounter+1],18,2)=="08")
+			{
+				RetornoAbstract::$linesCounter++;
+				$class = 'CnabPHP\resources\\B'.RetornoAbstract::$banco.'\retorno\\'.RetornoAbstract::$layout.'\Registro3Y08';
+				$this->children[] = new $class(RetornoAbstract::$lines[RetornoAbstract::$linesCounter]);
+			}
+		}
 	}
 	public function get_data_ocorrencia(){
 		$r3u = $this->R3U;
